@@ -1,15 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Student page{% endblock %}
+
+{% block contents%}
+<a href="/students/{{student.id}}/edit">edit</a>
 <h1>{{student.name}}</h1>
 <h1>{{student.age}}</h1>
 <h1>{{student.mark}}</h1>
 <h1>{{student.course}}</h1>
-
-</body>
-</html>
+{% endblock %}
