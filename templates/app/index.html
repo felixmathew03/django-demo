@@ -2,6 +2,105 @@
 {% load static %}
 {% block title %}Home page{% endblock %}
 
-{% block contents%}
-    <h1>Home page</h1>
+{% block contents %}
+<section class="home">
+
+    <!-- Hero -->
+    <div class="hero">
+        <div class="hero-text">
+            <span class="hero-tag">Student management</span>
+            <h1>Welcome back, <span class="highlight">{{ std_name }}</span></h1>
+            <p>Keep track of every student, their marks and courses in one place.
+               Add new students, update records and see how everyone is doing at a glance.</p>
+            <div class="hero-actions">
+                <a href="{% url 'view_students' %}" class="btn btn-primary">View students</a>
+                <a href="/about/" class="btn btn-secondary">About</a>
+            </div>
+        </div>
+
+        <div class="hero-art" aria-hidden="true">
+            <div class="art-card art-card-1">A+</div>
+            <div class="art-card art-card-2"></div>
+            <div class="art-card art-card-3">100%</div>
+        </div>
+    </div>
+
+    <!-- Live stats -->
+    <div class="home-stats">
+        <div class="home-stat">
+            <span class="home-stat-label">Total students</span>
+            <span class="home-stat-value">{{ total_students }}</span>
+        </div>
+        <div class="home-stat">
+            <span class="home-stat-label">Courses</span>
+            <span class="home-stat-value">{{ total_courses }}</span>
+        </div>
+        <div class="home-stat">
+            <span class="home-stat-label">Average mark</span>
+            <span class="home-stat-value">{{ average_mark }}</span>
+        </div>
+        <div class="home-stat">
+            <span class="home-stat-label">Pass rate</span>
+            <span class="home-stat-value">{{ pass_rate }}<small>%</small></span>
+        </div>
+    </div>
+
+    <!-- Feature cards -->
+    <h2 class="section-title">What you can do</h2>
+    <div class="feature-grid">
+        <a href="{% url 'view_students' %}" class="feature-card">
+            <span class="feature-icon">&#128101;</span>
+            <h3>Browse students</h3>
+            <p>See every student with their age, mark, course and result in one table.</p>
+        </a>
+        <a href="{% url 'view_students' %}" class="feature-card">
+            <span class="feature-icon">&#128269;</span>
+            <h3>Filter by course</h3>
+            <p>Narrow the list down to a single course to compare how a class is doing.</p>
+        </a>
+        <a href="{% url 'view_students' %}" class="feature-card">
+            <span class="feature-icon">&#9999;&#65039;</span>
+            <h3>Edit records</h3>
+            <p>Open any student to update their details or remove them when needed.</p>
+        </a>
+    </div>
+
+    <!-- Top performers + recent -->
+    <div class="home-columns">
+        <div class="panel">
+            <h2>Top performers</h2>
+            <ol class="rank-list">
+                {% for s in top_students %}
+                <li>
+                    <a href="/students/{{ s.id }}/">
+                        <span class="rank-num">{{ forloop.counter }}</span>
+                        <span class="rank-name">{{ s.name }}</span>
+                        <span class="rank-mark">{{ s.mark }}</span>
+                    </a>
+                </li>
+                {% empty %}
+                <li class="panel-empty">No students yet.</li>
+                {% endfor %}
+            </ol>
+        </div>
+
+        <div class="panel">
+            <h2>Recently added</h2>
+            <ul class="recent-list">
+                {% for s in recent_students %}
+                <li>
+                    <a href="/students/{{ s.id }}/">
+                        <span class="recent-dot"></span>
+                        <span class="rank-name">{{ s.name }}</span>
+                        <span class="recent-course">{{ s.course }}</span>
+                    </a>
+                </li>
+                {% empty %}
+                <li class="panel-empty">Nothing here yet. Add your first student!</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+</section>
 {% endblock %}

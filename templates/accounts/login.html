@@ -1,0 +1,23 @@
+
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Signin page{% endblock %}
+
+{% block contents%}
+<form action="" method="post">
+    {% csrf_token %}
+    <p>{{error}}</p>
+    <p>
+        <label for="">Username: </label>
+        <input type="text" placeholder="Enter name" name="username">
+    </p>
+    <p>
+        <label for="">Password: </label>
+        <input type="password" placeholder="Enter password"  name="password" id="">
+    </p>
+    <p>
+        <input type="submit" value="Signin">
+    </p>
+    <p>Don't have any account? <a href="/accounts/register">Signup</a></p>
+</form>
+{% endblock %}

@@ -1,0 +1,31 @@
+
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Signup page{% endblock %}
+
+{% block contents%}
+<form action="" method="post">
+    {% csrf_token %}
+    <p>{{error}}</p>
+    <p>
+        <label for="">Username: </label>
+        <input type="text" placeholder="Enter name" name="username">
+    </p>
+    <p>
+        <label for="">Password: </label>
+        <input type="password" placeholder="Enter password"  name="password" id="">
+    </p>
+    <p>
+        <label for="">Confirm Password: </label>
+        <input type="password" placeholder="Enter confirm-password"  name="cpassword" id="">
+    </p>
+    <p>
+        <label for="">Email</label>
+        <input type="email" name="email" placeholder="Enter email"  id="">
+    </p>
+    <p>
+        <input type="submit" value="Signup">
+    <p>Already have an account? <a href="/accounts/login">Signin</a></p>
+</p>
+</form>
+{% endblock %}

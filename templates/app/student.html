@@ -1,11 +1,55 @@
 {% extends 'app/base.html' %}
 {% load static %}
-{% block title %}Student page{% endblock %}
+{% block title %}{{ student.name }} | Student{% endblock %}
 
-{% block contents%}
-<a href="/students/{{student.id}}/edit">edit</a>
-<h1>{{student.name}}</h1>
-<h1>{{student.age}}</h1>
-<h1>{{student.mark}}</h1>
-<h1>{{student.course}}</h1>
+{% block contents %}
+<section class="student-detail">
+
+    <a href="/students/" class="back-link">&larr; Back to students</a>
+
+    <div class="profile-card">
+        <div class="profile-top">
+            <div ><img class="avatar" src="{{student.image.url}}" alt="" style="width: 100; height: 100%; object-fit: cover; object-position: center;"></div>
+
+            <div class="profile-info">
+                <h1>{{ student.name }}</h1>
+                <p>{{ student.course }}</p>
+            </div>
+
+            {# Change 35 to your pass mark #}
+            {% if student.mark >= 35 %}
+                <span class="status passed">Passed</span>
+            {% else %}
+                <span class="status failed">Failed</span>
+            {% endif %}
+        </div>
+
+        <div class="stat-grid">
+            <div class="stat">
+                <span class="stat-label">Age</span>
+                <span class="stat-value">{{ student.age }}</span>
+            </div>
+
+            <div class="stat">
+                <span class="stat-label">Mark</span>
+                <span class="stat-value">{{ student.mark }}</span>
+                <div class="mark-bar">
+                    {# width is the mark as a percentage (assumes marks are out of 100) #}
+                    <div class="mark-fill" style="width: {{ student.mark }}%"></div>
+                </div>
+            </div>
+
+            <div class="stat">
+                <span class="stat-label">Course</span>
+                <span class="stat-value stat-text">{{ student.course }}</span>
+            </div>
+        </div>
+
+        <div class="profile-actions">
+            <a href="/students/{{ student.id }}/edit" class="btn btn-primary">Edit student</a>
+            <a href="/students/" class="btn btn-secondary">All students</a>
+        </div>
+    </div>
+
+</section>
 {% endblock %}

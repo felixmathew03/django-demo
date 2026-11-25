@@ -1,32 +1,92 @@
+
 {% extends 'app/base.html' %}
 {% load static %}
-{% block title %}student page{% endblock %}
 
-{% block contents%}
-<h1>Students Page</h1>
-<a href="/add">Add student</a>
-<table>
-    <tr>
-        <th>Name</th>
-        <th>Age</th>
-        <th>Result</th>
-    </tr>
-    {% for student in students %}
-    <tr>
-        <td>{{student.name}}</td>
-        <td>{{student.age}}</td>
-        <td>
-            {% if student.mark >= 40%}
-                Passed
-            {% else%}
-                Failed
-            {% endif %}
-        </td>
-        <td>
-            <a href="./{{student.id}}">View details</a>
-            <a href="./{{student.id}}/delete">Delete student</a>
-        </td>
-    </tr>
-    {% endfor %}
-</table>
+{% block title %}Students | Synnefo{% endblock %}
+
+{% block contents %}
+
+<div class="students-page">
+
+    <!-- Page Heading -->
+    <div class="page-header">
+        <div>
+            <h1>Students</h1>
+            <p>Manage and view all registered students.</p>
+        </div>
+
+        <a href="/add" class="btn btn-primary">+ Add Student</a>
+    </div>
+
+    <!-- Filters and Search -->
+    <div class="toolbar">
+
+        <form action="" method="GET" class="filter-form">
+            <select name="course">
+                <option value="" disabled selected>Filter by course</option>
+                <option value="">All Courses</option>
+                {% for course in courses %}
+                    <option value="{{course.name}}">{{course.name}}</option>
+                {% endfor %}
+            </select>
+
+            <button type="submit" class="btn btn-secondary">Filter</button>
+        </form>
+
+        <form action="" method="GET" class="search-form">
+            <input type="search" name="search"
+                   placeholder="Search by student name...">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+
+    </div>
+
+    <!-- Students Table -->
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Result</th>
+                    <th>Course</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for student in students %}
+                <tr>
+                    <td class="student-name">{{student.name}}</td>
+                    <td>{{student.age}}</td>
+
+                    <td>
+                        {% if student.mark >= 40 %}
+                            <span class="status passed">Passed</span>
+                        {% else %}
+                            <span class="status failed">Failed</span>
+                        {% endif %}
+                    </td>
+
+                    <td>{{student.course}}</td>
+
+                    <td class="actions">
+                        <a href="./{{student.id}}" class="action-view">View</a>
+                        <a href="./{{student.id}}/delete"
+                           class="action-delete">Delete</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="empty-message">
+                        No students found.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
 {% endblock %}
